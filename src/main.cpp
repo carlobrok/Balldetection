@@ -29,6 +29,7 @@ int main() {
 
     srv.imshow("input", input);
     srv.imshow("edges", edges);
+    srv.update();
   }
 
   return -1;
