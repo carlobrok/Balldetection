@@ -35,8 +35,8 @@ int main() {
 
     std::vector<cv::Vec3f> circles;
     cv::HoughCircles(gray, circles, cv::HOUGH_GRADIENT, 1,
-             gray.rows/16,  // change this value to detect circles with different distances to each other
-             100, 30, 1, 30); // change the last two parameters
+      gray.rows/16,  // change this value to detect circles with different distances to each other
+      100, 30); // change the last two parameters
         // (min_radius & max_radius) to detect larger circles
 
 
