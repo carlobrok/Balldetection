@@ -10,9 +10,9 @@ int main() {
   cam.set(cv::CAP_PROP_FPS, 30);			// Kamera Framerate auf 30 fps
 
   VideoServer srv;				// Klasse für den VideoServer
-  srv.namedWindow("input");
   srv.namedWindow("edges");
-  srv.namedWindow("circles");
+  srv.namedWindow("gray");
+  srv.namedWindow("input");
 
   cv::Mat input, gauss, gray;
   cv::Mat grad_x, grad_y, abs_grad_x, abs_grad_y;
@@ -24,6 +24,7 @@ int main() {
 	ifs >> configdata;			// Config laden
 	ifs.close();
 
+  double contrast = configdata.getdoublevalue("CONTRAST");
   int mindist = configdata.getintvalue("MINDIST");
   double dp = configdata.getdoublevalue("DP");
   double param1 = configdata.getdoublevalue("PARAM1");
@@ -37,6 +38,9 @@ int main() {
     cv::cvtColor(gauss, gray, cv::COLOR_BGR2GRAY);
     //edges = cv::Scalar::all(0);
     //cv::Canny( gauss, edges, 10, 30, 3 );
+
+    gray.convertTo(gray, -1, contrast, 0); //decrease the contrast by 2
+
 
     cv::Sobel(gray, grad_x, CV_16S, 1, 0, 3);
     cv::Sobel(gray, grad_y, CV_16S, 0, 1, 3);
@@ -64,9 +68,9 @@ int main() {
 
 
 
-
-    srv.imshow("input", input);
     srv.imshow("edges", edges);
+    srv.imshow("gray", gray);
+    srv.imshow("input", input);
     //srv.imshow("circles", circles);
     srv.update();
   }
