@@ -2,6 +2,7 @@
 # Immer angeben als
 # key = value
 
+MINDIST = 50
 DP = 1.2
 PARAM1 = 100
 PARAM2 = 100
