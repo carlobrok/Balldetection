@@ -1,0 +1,7 @@
+# Config Datei für das Programm KamelPi
+# Immer angeben als
+# key = value
+
+DP = 1.2
+PARAM1 = 100
+PARAM2 = 100

@@ -2,6 +2,7 @@
 #include <vector>
 #include "VideoServer.h"
 #include "CameraCapture.h"
+#include "config_file.h"
 
 int main() {
 
@@ -16,6 +17,16 @@ int main() {
   cv::Mat input, gauss, gray;
   cv::Mat grad_x, grad_y, abs_grad_x, abs_grad_y;
   cv::Mat edges;
+
+  configuration::data configdata;
+
+  std::ifstream ifs("/home/pi/projects/Balldetection/src/config.info", std::ifstream::in);			// Config datei einlesen
+	ifs >> configdata;			// Config laden
+	ifs.close();
+
+  double dp = configdata.getdoublevalue("DP");
+  double param1 = configdata.getdoublevalue("PARAM1");
+  double param2 = configdata.getdoublevalue("PARAM2");
 
   while(1) {
     while(!cam.read(input)){}
@@ -34,9 +45,9 @@ int main() {
     cv::addWeighted(abs_grad_x, 0.5, abs_grad_y, 0.5, 0, edges);
 
     std::vector<cv::Vec3f> circles;
-    cv::HoughCircles(gray, circles, cv::HOUGH_GRADIENT, 1,
+    cv::HoughCircles(gray, circles, cv::HOUGH_GRADIENT, dp,
       gray.rows/16,  // change this value to detect circles with different distances to each other
-      100, 30); // change the last two parameters
+      param1, param2); // change the last two parameters
         // (min_radius & max_radius) to detect larger circles
 
 
