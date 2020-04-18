@@ -2,8 +2,10 @@
 # Immer angeben als
 # key = value
 
-CONTRAST = 2
+CANNY1 = 10
+CANNY2 = 100
+CONTRAST = 1
 MINDIST = 200
-DP = 1.2
-PARAM1 = 50
-PARAM2 = 50
+DP = 1.3
+PARAM1 = 20
+PARAM2 = 70

@@ -23,7 +23,8 @@ int main() {
   std::ifstream ifs("/home/pi/projects/Balldetection/src/config.info", std::ifstream::in);			// Config datei einlesen
 	ifs >> configdata;			// Config laden
 	ifs.close();
-
+  int canny1 = config.getintvalue("CANNY1");
+  int canny2 = config.getintvalue("CANNY2");
   double contrast = configdata.getdoublevalue("CONTRAST");
   int mindist = configdata.getintvalue("MINDIST");
   double dp = configdata.getdoublevalue("DP");
@@ -36,10 +37,10 @@ int main() {
     cv::GaussianBlur(input, gauss, cv::Size(5,5),2,2);		// Gaussian blur to normalize image
 
     cv::cvtColor(gauss, gray, cv::COLOR_BGR2GRAY);
-    //edges = cv::Scalar::all(0);
-    //cv::Canny( gauss, edges, 10, 30, 3 );
+    edges = cv::Scalar::all(0);
+    cv::Canny( gauss, edges, canny1, canny2, 3 );
 
-    gray.convertTo(gray, -1, contrast, 0); //decrease the contrast by 2
+    /*gray.convertTo(gray, -1, contrast, 0); //decrease the contrast by 2
 
 
     cv::Sobel(gray, grad_x, CV_16S, 1, 0, 3);
@@ -47,7 +48,7 @@ int main() {
     // converting back to CV_8U
     cv::convertScaleAbs(grad_x, abs_grad_x);
     cv::convertScaleAbs(grad_y, abs_grad_y);
-    cv::addWeighted(abs_grad_x, 0.5, abs_grad_y, 0.5, 0, edges);
+    cv::addWeighted(abs_grad_x, 0.5, abs_grad_y, 0.5, 0, edges);*/
 
     std::vector<cv::Vec3f> circles;
     cv::HoughCircles(gray, circles, cv::HOUGH_GRADIENT, dp,
