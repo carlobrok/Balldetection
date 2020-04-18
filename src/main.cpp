@@ -49,7 +49,7 @@ int main() {
     cv::convertScaleAbs(grad_x, abs_grad_x);
     cv::convertScaleAbs(grad_y, abs_grad_y);
     cv::addWeighted(abs_grad_x, 0.5, abs_grad_y, 0.5, 0, edges);
-    cv::adaptiveThreshold(edges, edges ,255,cv::ADAPTIVE_THRESH_GAUSSIAN_C, cv::THRESH_BINARY,11,2);
+    cv::adaptiveThreshold(edges, edges ,255,cv::ADAPTIVE_THRESH_GAUSSIAN_C, cv::THRESH_BINARY_INV,11,2);
     cv::morphologyEx(edges, edges, cv::MORPH_DILATE, cv::getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(5,5)));
 
     std::vector<cv::Vec3f> circles;
