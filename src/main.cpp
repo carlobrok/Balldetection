@@ -24,6 +24,7 @@ int main() {
 	ifs >> configdata;			// Config laden
 	ifs.close();
 
+  int mindist = configdata.getintvalue("MINDIST");
   double dp = configdata.getdoublevalue("DP");
   double param1 = configdata.getdoublevalue("PARAM1");
   double param2 = configdata.getdoublevalue("PARAM2");
@@ -46,7 +47,7 @@ int main() {
 
     std::vector<cv::Vec3f> circles;
     cv::HoughCircles(gray, circles, cv::HOUGH_GRADIENT, dp,
-      gray.rows/16,  // change this value to detect circles with different distances to each other
+      mindist,  // change this value to detect circles with different distances to each other
       param1, param2); // change the last two parameters
         // (min_radius & max_radius) to detect larger circles
 
