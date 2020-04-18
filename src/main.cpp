@@ -40,7 +40,7 @@ int main() {
     edges = cv::Scalar::all(0);
     //cv::Canny( gauss, edges, canny1, canny2, 3 );
 
-    gray.convertTo(gray, -1, contrast, 0); //decrease the contrast by 2
+    //gray.convertTo(gray, -1, contrast, 0); //decrease the contrast by 2
 
 
     cv::Sobel(gray, grad_x, CV_16S, 1, 0, 3);
@@ -48,7 +48,7 @@ int main() {
     // converting back to CV_8U
     cv::convertScaleAbs(grad_x, abs_grad_x);
     cv::convertScaleAbs(grad_y, abs_grad_y);
-    //cv::addWeighted(abs_grad_x, 0.5, abs_grad_y, 0.5, 0, edges);
+    cv::addWeighted(abs_grad_x, 0.5, abs_grad_y, 0.5, 0, edges);
     cv::morphologyEx(edges, edges, cv::MORPH_DILATE, cv::getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(5,5)));
 
     std::vector<cv::Vec3f> circles;
