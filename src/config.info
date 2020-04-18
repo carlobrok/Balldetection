@@ -2,6 +2,7 @@
 # Immer angeben als
 # key = value
 
-DP = 1.2
-PARAM1 = 100
-PARAM2 = 100
+DP = 1
+PARAM1 = 20
+PARAM2 = 65
+
