@@ -23,8 +23,8 @@ int main() {
   std::ifstream ifs("/home/pi/projects/Balldetection/src/config.info", std::ifstream::in);			// Config datei einlesen
 	ifs >> configdata;			// Config laden
 	ifs.close();
-  int canny1 = config.getintvalue("CANNY1");
-  int canny2 = config.getintvalue("CANNY2");
+  int canny1 = configdata.getintvalue("CANNY1");
+  int canny2 = configdata.getintvalue("CANNY2");
   double contrast = configdata.getdoublevalue("CONTRAST");
   int mindist = configdata.getintvalue("MINDIST");
   double dp = configdata.getdoublevalue("DP");
@@ -39,7 +39,7 @@ int main() {
     cv::cvtColor(gauss, gray, cv::COLOR_BGR2GRAY);
     edges = cv::Scalar::all(0);
     cv::Canny( gauss, edges, canny1, canny2, 3 );
-
+    cv::morphologyEx(edges, edges, cv::MORPH_DILATE, cv::getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(5,5)));
     /*gray.convertTo(gray, -1, contrast, 0); //decrease the contrast by 2
 
 
